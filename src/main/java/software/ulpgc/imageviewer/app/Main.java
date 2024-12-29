@@ -1,4 +1,4 @@
-package software.ulpgc.imageviewer;
+package software.ulpgc.imageviewer.app;
 
 public class Main {
     public static void main(String[] args) {

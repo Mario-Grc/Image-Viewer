@@ -1,7 +1,8 @@
-package software.ulpgc.imageviewer;
+package software.ulpgc.imageviewer.model;
 
 public interface Image {
     String name();
     Image next();
     Image previous();
+    byte[] content();
 }
