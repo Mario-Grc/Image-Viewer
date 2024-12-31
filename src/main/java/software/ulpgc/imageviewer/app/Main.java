@@ -10,7 +10,7 @@ import java.io.File;
 public class Main {
     public static void main(String[] args) {
         MainFrame mainFrame = new MainFrame();
-        Image image = new FileImageLoader(new File("G:/Otros ordenadores/Mi portátil/Año_3/1ºSemestre/IS2/imagenes")).load();
+        Image image = new FileImageLoader(new File("imagenes")).load();
         mainFrame.getImageDisplay().show(image);
         mainFrame.addCommand("next", new NextImageCommand(mainFrame.getImageDisplay()))
                         .addCommand("previous", new PreviousImageCommand(mainFrame.getImageDisplay()));

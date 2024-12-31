@@ -2,21 +2,25 @@ package software.ulpgc.imageviewer.io;
 
 import software.ulpgc.imageviewer.model.Image;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 
 public class FileImageLoader implements ImageLoader {
     private final File[] files;
+    private final Map<File, BufferedImage> cache;
     private final Set<String> validExtensions =Set.of("jpg", "jpeg", "png", "gif");
 
     public FileImageLoader(File folder) {
         this.files = requireNonNull(folder.listFiles(isImageFile()));
+        this.cache = new HashMap<>();
     }
 
     @Override
@@ -52,13 +56,21 @@ public class FileImageLoader implements ImageLoader {
             }
 
             @Override
-            public byte[] content() {
-                try {
-                    return Files.readAllBytes(files[index].toPath());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+            public BufferedImage content() {
+                return loadContent(files[index]);
             }
         };
+    }
+
+    private BufferedImage loadContent(File file) {
+        return cache.computeIfAbsent(file, this::readFileContent);
+    }
+
+    private BufferedImage readFileContent(File file) {
+        try {
+            return ImageIO.read(file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

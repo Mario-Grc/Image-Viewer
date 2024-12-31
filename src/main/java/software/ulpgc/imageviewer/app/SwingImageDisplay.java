@@ -1,6 +1,5 @@
 package software.ulpgc.imageviewer.app;
 
-import software.ulpgc.imageviewer.io.ImageDeserializer;
 import software.ulpgc.imageviewer.model.Image;
 import software.ulpgc.imageviewer.view.ImageDisplay;
 
@@ -8,12 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SwingImageDisplay extends JPanel implements ImageDisplay {
-    private final ImageDeserializer deserializer;
     private Image image;
-
-    public SwingImageDisplay(ImageDeserializer deserializer) {
-        this.deserializer = deserializer;
-    }
 
     @Override
     public void show(Image image) {
@@ -28,24 +22,23 @@ public class SwingImageDisplay extends JPanel implements ImageDisplay {
 
     @Override
     public void paint(Graphics g) {
-        g.setColor(Color.black);
+        g.setColor(Color.BLACK);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         drawImage(g);
     }
 
     private void drawImage(Graphics g) {
-        java.awt.Image image = deserialze();
         Dimension scaledSize = fitToSize(image);
 
         int x = (this.getWidth() - scaledSize.width) / 2;
         int y = (this.getHeight() - scaledSize.height) / 2;
 
-        g.drawImage(image, x, y, scaledSize.width, scaledSize.height, null);
+        g.drawImage(image.content(), x, y, scaledSize.width, scaledSize.height, null);
     }
 
-    private Dimension fitToSize(java.awt.Image image) {
-        int originalWidth = image.getWidth(null);
-        int originalHeight = image.getHeight(null);
+    private Dimension fitToSize(Image image) {
+        int originalWidth = image.content().getWidth(null);
+        int originalHeight = image.content().getHeight(null);
 
         double scale = calculateScale(originalWidth, originalHeight);
 
@@ -61,7 +54,4 @@ public class SwingImageDisplay extends JPanel implements ImageDisplay {
         return Math.min(panelWidth / originalWidth, panelHeight / originalHeight);
     }
 
-    private java.awt.Image deserialze() {
-        return (java.awt.Image) deserializer.deserialize(image.content());
-    }
 }

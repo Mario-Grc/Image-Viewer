@@ -34,7 +34,7 @@ public class MainFrame extends JFrame {
     private Component customButton(String name) {
         JButton button = new JButton(name);
         button.setFont(new Font("Arial", Font.PLAIN, 14));
-        button.addActionListener(e -> commands.get(name).execute());
+        button.addActionListener(_ -> commands.get(name).execute());
         return button;
     }
 
@@ -43,7 +43,7 @@ public class MainFrame extends JFrame {
     }
 
     private SwingImageDisplay newImageDisplay() {
-        return new SwingImageDisplay(new SwingImageDeserializer());
+        return new SwingImageDisplay();
     }
 
     public MainFrame addCommand(String name, Command command) {
