@@ -5,8 +5,6 @@ import software.ulpgc.imageviewer.view.ImageDisplay;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +25,7 @@ public class MainFrame extends JFrame {
 
     private Component navigationPanel() {
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1, 3));
+        panel.setLayout(new GridLayout(1, 2));
         panel.add(customButton("previous"));
         panel.add(customButton("next"));
         return panel;
@@ -36,12 +34,7 @@ public class MainFrame extends JFrame {
     private Component customButton(String name) {
         JButton button = new JButton(name);
         button.setFont(new Font("Arial", Font.PLAIN, 14));
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                commands.get(name).execute();
-            }
-        });
+        button.addActionListener(e -> commands.get(name).execute());
         return button;
     }
 
