@@ -3,21 +3,33 @@ package software.ulpgc.imageviewer.io;
 import software.ulpgc.imageviewer.model.Image;
 
 import java.io.File;
+import java.io.FileFilter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 
 public class FileImageLoader implements ImageLoader {
     private final File[] files;
+    private final Set<String> validExtensions =Set.of("jpg", "jpeg", "png", "gif");
 
     public FileImageLoader(File folder) {
-        this.files = requireNonNull(folder.listFiles());    // TODO check extensions
+        this.files = requireNonNull(folder.listFiles(isImageFile()));
     }
 
     @Override
     public Image load() {
         return getImage(0);
+    }
+
+    private FilenameFilter isImageFile(){
+        return (dir, name) -> validExtensions.contains(extensionOf(name));
+    }
+
+    private static String extensionOf(String name) {
+        return name.substring(name.lastIndexOf(".") + 1).toLowerCase();
     }
 
     private Image getImage(int index) {

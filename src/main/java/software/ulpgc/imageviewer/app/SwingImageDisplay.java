@@ -36,9 +36,10 @@ public class SwingImageDisplay extends JPanel implements ImageDisplay {
     private void drawImage(Graphics g) {
         java.awt.Image image = deserialze();
         Dimension scaledSize = fitToSize(image);
-        // TODO refactor this method
+
         int x = (this.getWidth() - scaledSize.width) / 2;
         int y = (this.getHeight() - scaledSize.height) / 2;
+
         g.drawImage(image, x, y, scaledSize.width, scaledSize.height, null);
     }
 
@@ -46,15 +47,18 @@ public class SwingImageDisplay extends JPanel implements ImageDisplay {
         int originalWidth = image.getWidth(null);
         int originalHeight = image.getHeight(null);
 
-        double panelWidth = this.getWidth();
-        double panelHeight = this.getHeight();
-
-        double scale = Math.min(panelWidth / originalWidth, panelHeight / originalHeight);
+        double scale = calculateScale(originalWidth, originalHeight);
 
         int scaledWidth = (int) (scale * originalWidth);
         int scaledHeight = (int) (scale * originalHeight);
 
         return new Dimension(scaledWidth, scaledHeight);
+    }
+
+    private double calculateScale(int originalWidth, int originalHeight) {
+        double panelWidth = this.getWidth();
+        double panelHeight = this.getHeight();
+        return Math.min(panelWidth / originalWidth, panelHeight / originalHeight);
     }
 
     private java.awt.Image deserialze() {
