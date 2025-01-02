@@ -1,16 +1,14 @@
 package software.ulpgc.imageviewer.control;
 
-import software.ulpgc.imageviewer.view.ImageDisplay;
-
 public class NextImageCommand implements Command {
-    private final ImageDisplay display;
+    private final ImagePresenter presenter;
 
-    public NextImageCommand(ImageDisplay display) {
-        this.display = display;
+    public NextImageCommand(ImagePresenter presenter) {
+        this.presenter = presenter;
     }
 
     @Override
     public void execute() {
-        display.show(display.getImage().next());
+        presenter.show(presenter.getImage().next());
     }
 }
