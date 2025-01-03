@@ -29,7 +29,7 @@ public class FileImageLoader implements ImageLoader {
     }
 
     private FilenameFilter isImageFile(){
-        return (dir, name) -> validExtensions.contains(extensionOf(name));
+        return (_, name) -> validExtensions.contains(extensionOf(name));
     }
 
     private static String extensionOf(String name) {

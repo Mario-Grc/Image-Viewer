@@ -20,9 +20,17 @@ public class ImagePresenter {
     private void shift(int offset) {
         updateDisplay(image, offset);
         if (offset > 0)
-            display.paint(offset - display.width(), image.previous().content().getHeight(), image.previous().content().getWidth(), image.previous().content());
+            paintNextImage(offset, image);
         else
-            display.paint(offset + display.width(), image.next().content().getHeight(), image.next().content().getWidth(), image.next().content());
+            paintPreviousImage(offset, image);
+    }
+
+    private void paintPreviousImage(int offset, Image image) {
+        display.paint(offset + display.width(), image.next().content().getHeight(), image.next().content().getWidth(), image.next().content());
+    }
+
+    private void paintNextImage(int offset, Image image) {
+        display.paint(offset - display.width(), image.previous().content().getHeight(), image.previous().content().getWidth(), image.previous().content());
     }
 
 

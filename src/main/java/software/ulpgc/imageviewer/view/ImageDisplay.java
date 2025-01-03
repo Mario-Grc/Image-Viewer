@@ -12,12 +12,12 @@ public interface ImageDisplay {
     void on(Release release);
 
     interface Shift {
-        Shift Null = offset -> {};
+        Shift Null = _ -> {};
         void offset(int offset);
     }
 
     interface Release {
-        Release Null = offset -> {};
+        Release Null = _ -> {};
         void offset(int offset);
     }
 

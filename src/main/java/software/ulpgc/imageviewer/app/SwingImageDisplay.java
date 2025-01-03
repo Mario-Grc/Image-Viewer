@@ -26,7 +26,6 @@ public class SwingImageDisplay extends JPanel implements ImageDisplay {
         return new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
             }
 
             @Override
@@ -41,12 +40,10 @@ public class SwingImageDisplay extends JPanel implements ImageDisplay {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-
             }
         };
     }
@@ -105,7 +102,7 @@ public class SwingImageDisplay extends JPanel implements ImageDisplay {
 
     @Override
     public void paint(int offset, int width, int height, BufferedImage content) {
-        paints.add(new Paint(0, width, height, offset, content));
+        paints.add(new Paint(width, height, offset, content));
         repaint();
     }
 
@@ -124,5 +121,5 @@ public class SwingImageDisplay extends JPanel implements ImageDisplay {
         this.release = release != null ? release : Release.Null;
     }
 
-    private record Paint(int offsetWidth, int width, int height, int shiftOffset, BufferedImage content) {}
+    private record Paint(int width, int height, int shiftOffset, BufferedImage content) {}
 }
