@@ -1,2 +1,2 @@
 ## Image Viewer
-Photo gallery application that allows users to navigate images scrolling or using buttons.
+Photo gallery application that enables users to navigate through images by scrolling or using buttons.
